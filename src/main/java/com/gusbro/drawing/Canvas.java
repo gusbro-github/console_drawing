@@ -15,6 +15,7 @@ public class Canvas
     private static final char POINT = 'x';
     private static final char EDGE_VER = '|';
     private static final char EDGE_HOR = '-';
+    private static final char DUMMY_COLOR = (char)-1;
     
     private int width, height;
     private char [][]canvas;
@@ -105,13 +106,15 @@ public class Canvas
     {
         if(x < 1 || x > width || y < 1 || y > height)
             throw new IllegalArgumentException(Constants.ERR_FILL_BOUNDARIES);
+        char originalColor = canvas[y][x];
+        replaceColor(originalColor, DUMMY_COLOR);
         doFill(x, y, color);
+        replaceColor(DUMMY_COLOR, originalColor);
     }
     
     private void doFill(int x, int y, char color)
     {
-        if(canvas[y][x] != POINT &&
-           canvas[y][x] != color &&     
+        if(canvas[y][x] == DUMMY_COLOR &&
            x >= 1 && x <= width && y >= 1 && y <= height) 
         {
             canvas[y][x] = color;
@@ -120,5 +123,13 @@ public class Canvas
             doFill(x-1, y, color);
             doFill(x, y-1, color);
         }
+    }
+
+    private void replaceColor(char fromColor, char toColor)
+    {
+        for(int j = 1; j <= height; j++)
+            for(int i = 1; i <= width; i++)
+                if(canvas[j][i] == fromColor)
+                    canvas[j][i] = toColor;
     }
 }
