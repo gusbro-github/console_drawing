@@ -12,7 +12,7 @@ package com.gusbro.drawing;
 public class Canvas
 {
     private static final char BLANK = ' ';
-    private static final char POINT = 'x';
+    protected static final char POINT = 'x';
     private static final char EDGE_VER = '|';
     private static final char EDGE_HOR = '-';
     private static final char DUMMY_COLOR = (char)-1;
@@ -131,5 +131,12 @@ public class Canvas
             for(int i = 1; i <= width; i++)
                 if(canvas[j][i] == fromColor)
                     canvas[j][i] = toColor;
+    }
+    
+    public char getPoint(int x, int y)
+    {
+        if(x < 1 || x > width || y < 1 || y > height)
+            throw new IllegalArgumentException(Constants.ERR_POINT_BOUNDARIES);
+        return canvas[y][x];
     }
 }

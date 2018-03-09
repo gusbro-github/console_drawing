@@ -70,9 +70,13 @@ public class DrawingTest
             "L 1 2 6 2",
             "L 6 3 6 4",
             "R 14 1 18 3",
+            "R 20 20 25 28",
+            "B 24 28 X",
             "B 10 3 o",
             "B 10 3 r",
             "B 29 29 b",
+            "B 25 28 Y",
+            "B 29 29  ", // special case filling with blank
             "Q"
         };
         boolean [] shouldRaiseError = new boolean []
@@ -91,6 +95,10 @@ public class DrawingTest
             true,
             true,
             
+            false,
+            false,
+            false,
+            false,
             false,
             false,
             false,

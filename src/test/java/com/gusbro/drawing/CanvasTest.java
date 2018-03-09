@@ -109,7 +109,23 @@ public class CanvasTest
             {
                 assertEquals(shouldRaiseError[idx], true);
             }
-        }        
+        }
+        
+        // Now test that a line actually puts the points where it should
+        instance = getInstance();
+        instance.drawLine(2, 3, 8, 3);
+        int pointCount = 0;
+        for(int i = 2; i <=8; i++)
+            if(instance.getPoint(i, 3) == Canvas.POINT)
+                pointCount++;
+        assertEquals(7, pointCount); // Points where they should be
+        
+        pointCount = 0;
+        for(int j = 1; j <= instance.getHeight(); j++)
+            for(int i = 1; i <= instance.getWidth(); i++)
+                if(instance.getPoint(i, j) == Canvas.POINT)
+                    pointCount++;
+        assertEquals(7, pointCount); // There are no more points other than the ones of the line
     }
 
     /**

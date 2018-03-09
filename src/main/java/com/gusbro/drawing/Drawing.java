@@ -37,12 +37,16 @@ public class Drawing
         while(true)
         {
             System.out.println(Constants.PROMPT_MSG);
-            String cmd = (console != null ? console.readLine() : ideConsoleReader.readLine()).trim();
+            String cmd = (console != null ? console.readLine() : ideConsoleReader.readLine());
+            boolean endsWithSpace = false;
+            if(cmd.endsWith(" "))
+                endsWithSpace = true;
+            cmd = cmd.trim();
             if(cmd.isEmpty())
                 continue;
             try
             {
-                if(!drawing.processCommand(cmd))
+                if(!drawing.processCommand(cmd, endsWithSpace))
                 {
                     return;
                 }
@@ -62,6 +66,11 @@ public class Drawing
     private Canvas canvas;
     
     public boolean processCommand(String cmd)
+    {
+        return processCommand(cmd, cmd.endsWith(" "));
+    }
+    
+    public boolean processCommand(String cmd, boolean endsWithSpace)
     {
         cmd = cmd.trim();
         String [] cmdArgs = cmd.split("\\s+");
@@ -90,10 +99,17 @@ public class Drawing
                 break;
             }
             case Constants.CMD_FILL:
-            {
-                checkArgCount(cmdArgs.length, "FILL", 3);
+            {                
+                char fillChar;
+                if(cmdArgs.length == 3 && endsWithSpace)
+                    fillChar = ' '; // Special case, fill with blank space
+                else
+                {
+                    checkArgCount(cmdArgs.length, "FILL", 3);
+                    fillChar = getChar(cmdArgs[3]);
+                }
                 checkCanvas();
-                canvas.fill(getInt(cmdArgs[1]), getInt(cmdArgs[2]), getChar(cmdArgs[3]));
+                canvas.fill(getInt(cmdArgs[1]), getInt(cmdArgs[2]), fillChar);
                 break;
             }
             case Constants.CMD_QUIT:

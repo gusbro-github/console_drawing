@@ -17,6 +17,7 @@ public class Constants
     public static final String ERR_LINE_STRAIGHT = "Line should be either horizontal or vertical";
     public static final String ERR_LINE_BOUNDARIES = "Line outside canvas boundaries";
     public static final String ERR_FILL_BOUNDARIES = "Fill starting location outside canvas boundaries";
+    public static final String ERR_POINT_BOUNDARIES = "Point outside canvas boundaries";
         
     // Commands
     public static final String CMD_CREATE = "C";
