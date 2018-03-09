@@ -17,4 +17,6 @@ For the line command, an error is shown when the parameters are not for a straig
 
 An error will also be shown if any point given is outside the boundaries of the canvas.
 
+The fill command has a special case handled when the fill character is a space
+
 When a comand is not recognized a message will be shown indicating it.
