@@ -66,7 +66,7 @@ public class Drawing
         cmd = cmd.trim();
         String [] cmdArgs = cmd.split("\\s+");
         if(cmdArgs.length == 0)
-            return false;
+            return true;
         switch(cmdArgs[0].toUpperCase())
         {
             case Constants.CMD_CREATE:
@@ -99,8 +99,7 @@ public class Drawing
             case Constants.CMD_QUIT:
                 return false;
             default:
-                System.err.println(String.format("Invalid command: %s", cmd));
-                break;
+                throw new IllegalArgumentException(String.format("Invalid command: %s", cmd));
         }
         return true;
     }

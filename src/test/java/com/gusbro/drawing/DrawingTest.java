@@ -1,0 +1,119 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.gusbro.drawing;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author gusbro
+ */
+public class DrawingTest
+{
+    
+    public DrawingTest()
+    {
+    }
+    
+    @BeforeClass
+    public static void setUpClass()
+    {
+    }
+    
+    @AfterClass
+    public static void tearDownClass()
+    {
+    }
+    
+    @Before
+    public void setUp()
+    {
+    }
+    
+    @After
+    public void tearDown()
+    {
+    }
+
+
+    /**
+     * Test of processCommand method, of class Drawing.
+     */
+    @Test
+    public void testProcessCommand()
+    {
+        System.out.println("processCommand");
+        String [] cmd = new String []{
+            "L 1 2 6 2",
+            "R 14 1 18 3",
+            
+            "C 20 4",
+            "L 1 2 6 2",
+            "L 6 3 6 4",
+            "R 14 1 18 3",
+            "B 10 3 o",
+            "Q",
+            
+            "Z",
+            "C 5",
+            "C -2 50",
+            
+            "C 30 30",
+            "L 1 2 6 2",
+            "L 6 3 6 4",
+            "R 14 1 18 3",
+            "B 10 3 o",
+            "B 10 3 r",
+            "B 29 29 b",
+            "Q"
+        };
+        boolean [] shouldRaiseError = new boolean []
+        {
+            true,
+            true,
+            
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            
+            true,
+            true,
+            true,
+            
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        };
+        Drawing instance = new Drawing();
+        for(int idx = 0; idx < cmd.length; idx++)
+        {
+            try
+            {
+                if(!instance.processCommand(cmd[idx]))
+                    instance = new Drawing();
+                assertEquals(shouldRaiseError[idx], false);
+            }catch(IllegalArgumentException e)
+            {
+                assertEquals(shouldRaiseError[idx], true);
+            }
+            instance.paint();
+        }
+    }
+    
+}
